@@ -1,4 +1,5 @@
-/* ************************************************************************** */
+/* ***********************************line = ft_strcpy(line, dest);
+                *************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
@@ -6,7 +7,7 @@
 /*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:14:32 by tbahin            #+#    #+#             */
-/*   Updated: 2024/11/28 17:18:49 by tbahin           ###   ########.fr       */
+/*   Updated: 2024/11/29 16:43:19 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +26,9 @@ int	ft_check(char *line)
 			return (i + 1);
 		i++;
 	}
-	if (i == 0)
+	if (line[0] == '\0')
 		return (0);
-	else
-		return (-1);
+	return (-1);
 }
 
 char	*ft_switch(char *line, size_t len)
@@ -66,24 +66,25 @@ char	*ft_strcpy(char *line, char *dest)
 	size_t	i;
 
 	i = 0;
-	while (line[i] != '\n' && line[i] != '\0')
+	while (line[i] != '\0')
 	{
+		if (line[i] == '\n')
+		{	
+			dest[i] = line[i];
+			i++;
+			break ;
+		}
 		dest[i] = line[i];
 		i++;
 	}
-	if (line[i] == '\n')
-	{
-		dest[i] = line[i];
-		line = ft_switch(line, i + 1);
-	}
-	i++;
+	line = ft_switch(line, i);
 	dest[i] = '\0';
 	return (line);
 }
 
-size_t	ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -93,32 +94,31 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strcat(char *src, char *line)
+char	*ft_strcat(char *src, char *line, int lens)
 {
-	size_t	lenl;
-	long long	i;
+	int	i;
 	char	*str;
 
-	lenl = ft_strlen(line);
 	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen(src) + lenl + 1));
+	str = NULL;
+	str = malloc(sizeof(char) * (lens + ft_strlen(line) + 1));
 	if (!str)
 	{
 		free(line);
 		return (NULL);
 	}
-	while (line[i] && lenl != 0)
+	while (i < ft_strlen(line))
 	{
 		str[i] = line[i];
 		i++;
 	}
 	i = 0;
-	while (src[i] && lens != 0 && i < BUFFER_SIZE)
+	while (src[i] && i < lens)
 	{
-		str[lenl + i] = src[i];
+		str[ft_strlen(line) + i] = src[i];
 		i++;
 	}
-	str[lenl + i] = '\0';
+	str[ft_strlen(line) + i] = '\0';
 	free(line);
 	return (str);
 }

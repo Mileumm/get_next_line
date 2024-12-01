@@ -6,7 +6,7 @@
 /*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:02:05 by tbahin            #+#    #+#             */
-/*   Updated: 2024/11/28 17:15:44 by tbahin           ###   ########.fr       */
+/*   Updated: 2024/12/01 20:43:06 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int	main(void)
 	int	i;
 
 	i = 0;
-	fd = open("test.txt", O_RDONLY);
+	fd = open("big_line_no_nl", O_RDONLY);
 	fd2 = open("dest.txt", O_WRONLY);
 	if (fd == -1 || fd2 == -1)
 		return (1);
 	line = get_next_line(fd);
+	printf("\n//////////\n");
 	while (line)
 	{
 		i = 0;
@@ -39,6 +40,7 @@ int	main(void)
 		free(line);
 		line = get_next_line(fd);
 	}
+	printf("\n//////////\n");
 	close(fd);
 	close(fd2);
 	return (0);
