@@ -18,23 +18,32 @@ char	*get_next_line(int fd)
 	char	*dest;
 	int	len;
 	int	nb_read;
-	char	buf[BUFFER_SIZE + 1];
+	char	*buf;
 
 	len = 0;
-	dest = NULL;
 	nb_read = -1;
 	len = ft_check(line);
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
 	if (len != (-1))
 	{
 		dest = malloc(sizeof(char) * (len + 1));
 		if (!dest)
+		{
+			free(buf);
 			return (NULL);
+		}
 		line = ft_strcpy(line, dest);
+		free(buf);
 		return (dest);
 	}
 	nb_read = read(fd, buf, BUFFER_SIZE);
 	if (nb_read == -1)
 	{
+		free(line);
+		line = NULL;
+		free(buf);
 		return (NULL);
 	}
 	buf[nb_read] = '\0';
@@ -44,11 +53,16 @@ char	*get_next_line(int fd)
 		if (!dest)
 			return (NULL);
 		line = ft_strcpy(line, dest);
+		free (buf);
 		return (dest);
 	}
-	else if (buf[0] == '\0' && !line)
+	else if (nb_read == 0 && !line)
+	{
+		free(buf);
 		return (NULL);
+	}
 	line = ft_strcat(buf, line, nb_read + 1, ft_strlen(line));
+	free(buf);
 	dest = get_next_line(fd);
 	return (dest);
 }
