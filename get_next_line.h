@@ -24,6 +24,6 @@ char    *get_next_line(int fd);
 char    *ft_strcpy(char *line, char *dest);
 char    *ft_switch(char *line, size_t len);
 int  ft_strlen(char *str);
-char    *ft_strcat(char *src, char *line, int lens);
+char    *ft_strcat(char *src, char *line, int lens, int lenl);
 int     ft_check(char *line);
 #endif

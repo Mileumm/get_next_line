@@ -48,7 +48,7 @@ char	*get_next_line(int fd)
 	}
 	else if (buf[0] == '\0' && !line)
 		return (NULL);
-	line = ft_strcat(buf, line, nb_read + 1);
+	line = ft_strcat(buf, line, nb_read + 1, ft_strlen(line));
 	dest = get_next_line(fd);
 	return (dest);
 }

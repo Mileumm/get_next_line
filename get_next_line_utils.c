@@ -94,20 +94,20 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strcat(char *src, char *line, int lens)
+char	*ft_strcat(char *src, char *line, int lens, int lenl)
 {
 	int	i;
 	char	*str;
 
 	i = 0;
 	str = NULL;
-	str = malloc(sizeof(char) * (lens + ft_strlen(line) + 1));
+	str = malloc(sizeof(char) * (lens + lenl + 1));
 	if (!str)
 	{
 		free(line);
 		return (NULL);
 	}
-	while (i < ft_strlen(line))
+	while (i < lenl)
 	{
 		str[i] = line[i];
 		i++;
@@ -115,10 +115,10 @@ char	*ft_strcat(char *src, char *line, int lens)
 	i = 0;
 	while (src[i] && i < lens)
 	{
-		str[ft_strlen(line) + i] = src[i];
+		str[lenl + i] = src[i];
 		i++;
 	}
-	str[ft_strlen(line) + i] = '\0';
+	str[lenl + i] = '\0';
 	free(line);
 	return (str);
 }
